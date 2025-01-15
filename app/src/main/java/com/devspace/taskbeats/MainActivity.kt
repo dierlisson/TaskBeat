@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         rvCategory.adapter = categoryAdapter
-        categoryAdapter.submitList(categories)
+        getCategoriesFromDatabase(categoryAdapter)
 
         rvTask.adapter = taskAdapter
         taskAdapter.submitList(tasks)
@@ -73,6 +73,21 @@ class MainActivity : AppCompatActivity() {
             categoryDao.insertAll(categoriesEntity)
         }
     }
+
+    private fun getCategoriesFromDatabase(adapter: CategoryListAdapter){
+        GlobalScope.launch(Dispatchers.IO) {
+            val categoriesFromDb:List<CategoryEntity> = categoryDao.getAll()
+            val categoriesUiData = categoriesFromDb.map{
+                CategoryUiData(
+                    name = it.name,
+                    isSelected = it.isSelected
+                )
+            }
+            adapter.submitList(categoriesUiData)
+        }
+    }
+
+
 }
 
 class AppDatabase {
