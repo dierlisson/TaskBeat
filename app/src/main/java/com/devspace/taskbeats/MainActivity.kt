@@ -74,10 +74,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getCategoriesFromDatabase(adapter: CategoryListAdapter){
+    private fun getCategoriesFromDatabase(adapter: CategoryListAdapter) {
         GlobalScope.launch(Dispatchers.IO) {
-            val categoriesFromDb:List<CategoryEntity> = categoryDao.getAll()
-            val categoriesUiData = categoriesFromDb.map{
+            val categoriesFromDb: List<CategoryEntity> = categoryDao.getAll()
+            val categoriesUiData = categoriesFromDb.map {
                 CategoryUiData(
                     name = it.name,
                     isSelected = it.isSelected
@@ -94,31 +94,8 @@ class AppDatabase {
 
 }
 
-val categories = listOf(
-    CategoryUiData(
-        name = "ALL",
-        isSelected = false
-    ),
-    CategoryUiData(
-        name = "STUDY",
-        isSelected = false
-    ),
-    CategoryUiData(
-        name = "WORK",
-        isSelected = false
-    ),
-    CategoryUiData(
-        name = "WELLNESS",
-        isSelected = false
-    ),
-    CategoryUiData(
-        name = "HOME",
-        isSelected = false
-    ),
-    CategoryUiData(
-        name = "HEALTH",
-        isSelected = false
-    ),
+val categories: List<CategoryUiData> = listOf(
+
 )
 
 val tasks = listOf(
