@@ -7,8 +7,6 @@ import androidx.room.Query
 
 @Dao
 interface TaskDao {
-    
-} TaskDao {
 
     @Query("Select * From taskentity")
     fun getAll(): List<TaskEntity>
