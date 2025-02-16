@@ -16,8 +16,7 @@ class MainActivity : AppCompatActivity() {
     private var tasks = listOf<TaskUiData>()
     private val db by lazy {
         Room.databaseBuilder(
-            applicationContext,
-            TaskBeatDataBase::class.java, "database-task-beat"
+            applicationContext, TaskBeatDataBase::class.java, "database-task-beat"
         ).build()
     }
 
@@ -41,7 +40,10 @@ class MainActivity : AppCompatActivity() {
 
         categoryAdapter.setOnClickListener { selected ->
             if (selected.name == "+") {
-                Snackbar.make(rvCategory, "+ is selected", Snackbar.LENGTH_LONG).show()
+
+                val createCategoryBottomSheet = CreateCategoryBottomSheet()
+                createCategoryBottomSheet.show(supportFragmentManager, "createCategoryBottomSheet")
+
             } else {
                 val categoryTemp = categories.map { item ->
                     when {
@@ -51,12 +53,11 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                val taskTemp =
-                    if (selected.name != "ALL") {
-                        tasks.filter { it.category == selected.name }
-                    } else {
-                        tasks
-                    }
+                val taskTemp = if (selected.name != "ALL") {
+                    tasks.filter { it.category == selected.name }
+                } else {
+                    tasks
+                }
                 taskAdapter.submitList(taskTemp)
                 categoryAdapter.submitList(categoryTemp)
             }
@@ -75,17 +76,14 @@ class MainActivity : AppCompatActivity() {
             val categoriesFromDb: List<CategoryEntity> = categoryDao.getAll()
             val categoriesUiData = categoriesFromDb.map {
                 CategoryUiData(
-                    name = it.name,
-                    isSelected = it.isSelected
+                    name = it.name, isSelected = it.isSelected
                 )
-            }
-                .toMutableList()
+            }.toMutableList()
 
             // add fake + category
             categoriesUiData.add(
                 CategoryUiData(
-                    name = "+",
-                    isSelected = false
+                    name = "+", isSelected = false
                 )
             )
             GlobalScope.launch(Dispatchers.Main) {
@@ -100,8 +98,7 @@ class MainActivity : AppCompatActivity() {
             val tasksFromDb: List<TaskEntity> = taskDao.getAll()
             val tasksUiData = tasksFromDb.map {
                 TaskUiData(
-                    name = it.name,
-                    category = it.category
+                    name = it.name, category = it.category
                 )
             }
             GlobalScope.launch(Dispatchers.Main) {
