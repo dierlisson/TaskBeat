@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.constraintlayout.motion.widget.MotionScene.Transition.TransitionOnClick
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
 
-class CreateCategoryBottomSheet : BottomSheetDialogFragment() {
+class CreateCategoryBottomSheet(
+    private val onCreateClicked: (String) -> Unit
+) : BottomSheetDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,6 +22,15 @@ class CreateCategoryBottomSheet : BottomSheetDialogFragment() {
         val view = inflater.inflate(R.layout.create_category_bottom_sheet, container, false)
         val btnCreate = view.findViewById<Button>(R.id.btn_category_create)
         val tieCategoryName = view.findViewById<TextInputEditText>(R.id.tie_category_name)
+
+        btnCreate.setOnClickListener{
+            val name = tieCategoryName.text.toString()
+            onCreateClicked.invoke(name)
+            dismiss()
+        }
+
+
+
         return view
     }
 }
