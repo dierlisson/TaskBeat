@@ -58,10 +58,6 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-
-
-
-
         categoryAdapter.setOnClickListener { selected ->
             if (selected.name == "+") {
 
