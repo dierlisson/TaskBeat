@@ -32,10 +32,9 @@ class CreateOrUpdateTaskBottomSheet(
         if (task == null) {
             tvTitle.setText(R.string.create_task_title)
             btnCreate.setText(R.string.create)
-        }else{
+        } else {
             tvTitle.setText(R.string.update_task_title)
             btnCreate.setText(R.string.update)
-
         }
         var taskCategory: String? = null
 
