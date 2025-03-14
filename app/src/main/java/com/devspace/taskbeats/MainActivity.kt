@@ -46,8 +46,8 @@ class MainActivity : AppCompatActivity() {
             showCreateUpdateTaskBottomSheet()
         }
 
-        taskAdapter.setOnClickListener {
-            showCreateUpdateTaskBottomSheet()
+        taskAdapter.setOnClickListener { task ->
+            showCreateUpdateTaskBottomSheet(task)
         }
 
         categoryAdapter.setOnClickListener { selected ->
@@ -146,9 +146,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showCreateUpdateTaskBottomSheet() {
-        val createTaskBottomSheet = CreateTaskBottomSheet(
-            categories
+    private fun showCreateUpdateTaskBottomSheet(taskUiData: TaskUiData? = null) {
+        val createTaskBottomSheet = CreateOrUpdateTaskBottomSheet(
+            task = taskUiData,
+            categoryList = categories
         ) { taskToBeCreated ->
             val taskEntityToBeInsert = TaskEntity(
                 name = taskToBeCreated.name,
