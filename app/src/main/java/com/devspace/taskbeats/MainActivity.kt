@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                 val createCategoryBottomSheet = CreateCategoryBottomSheet { categoryName ->
                     val categoryEntity = CategoryEntity(
                         name = categoryName,
-                        isSelected = false
+                        isSelected = false,
                     )
                     insertCategory(categoryEntity)
                 }
