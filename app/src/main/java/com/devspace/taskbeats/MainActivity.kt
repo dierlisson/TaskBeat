@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                 val createCategoryBottomSheet = CreateCategoryBottomSheet { categoryName ->
                     val categoryEntity = CategoryEntity(
                         name = categoryName,
-                        isSelected = false
+                        isSelected = false,
                     )
                     insertCategory(categoryEntity)
                 }
@@ -142,14 +142,16 @@ class MainActivity : AppCompatActivity() {
         categoriesEntity = categoriesFromDb
         val categoriesUiData = categoriesFromDb.map {
             CategoryUiData(
-                name = it.name, isSelected = it.isSelected
+                name = it.name,
+                isSelected = it.isSelected
             )
         }.toMutableList()
 
-        // add fake + category
-        categoriesUiData.add(
+
+        val categoryListTemp = mutableListOf(
             CategoryUiData(
-                name = "+", isSelected = false
+                name = "ALL",
+                isSelected = false,
             )
         )
 
@@ -224,7 +226,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun filterTaskByCategoryName(category: String) {
         GlobalScope.launch(Dispatchers.IO) {
-
             val tasksFromDb: List<TaskEntity> = taskDao.getAllByCategoryName(category)
             val tasksUiData: List<TaskUiData> = tasksFromDb.map {
                 TaskUiData(
