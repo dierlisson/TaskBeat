@@ -93,12 +93,13 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                val taskTemp = if (selected.name != "ALL") {
-                    tasks.filter { it.category == selected.name }
+                if (selected.name != "ALL") {
+                    filterTaskByCategoryName(selected.name)
                 } else {
-                    tasks
+                    GlobalScope.launch(Dispatchers.IO) {
+                        getTasksFromDataBase()
+                    }
                 }
-                taskAdapter.submitList(taskTemp)
                 categoryAdapter.submitList(categoryTemp)
             }
         }
@@ -216,6 +217,23 @@ class MainActivity : AppCompatActivity() {
             categoryDao.delete(categoryEntity)
             getCategoriesFromDatabase()
             getTasksFromDataBase()
+        }
+    }
+
+    private fun filterTaskByCategoryName(category: String) {
+        GlobalScope.launch(Dispatchers.IO) {
+
+            val tasksFromDb: List<TaskEntity> = taskDao.getAllByCategoryName(category)
+            val tasksUiData: List<TaskUiData> = tasksFromDb.map {
+                TaskUiData(
+                    id = it.id,
+                    name = it.name,
+                    category = it.category
+                )
+            }
+            GlobalScope.launch(Dispatchers.Main) {
+                taskAdapter.submitList(tasksUiData)
+            }
         }
     }
 
