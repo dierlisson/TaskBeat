@@ -36,11 +36,12 @@ class CreateOrUpdateTaskBottomSheet(
         val spinner: Spinner = view.findViewById(R.id.category_list)
 
         var taskCategory: String? = null
-        val categoryListTemp = mutableListOf("Select")
-        categoryListTemp.addAll(
+
+        val caqtegoryListTemp = mutableListOf("Select")
+        caqtegoryListTemp.addAll(
             categoryList.map { it.name }
         )
-        val categoryStr: List<String> = categoryList.map { it.name }
+        val categoryStr: List<String> = caqtegoryListTemp
 
 
         ArrayAdapter(
