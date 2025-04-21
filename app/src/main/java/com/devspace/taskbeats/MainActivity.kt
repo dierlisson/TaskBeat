@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity() {
     private var categories = listOf<CategoryUiData>()
     private var categoriesEntity = listOf<CategoryEntity>()
     private var tasks = listOf<TaskUiData>()
-
     private val categoryAdapter = CategoryListAdapter()
 
     private val taskAdapter by lazy {
@@ -74,7 +73,6 @@ class MainActivity : AppCompatActivity() {
 
         categoryAdapter.setOnClickListener { selected ->
             if (selected.name == "+") {
-
                 val createCategoryBottomSheet = CreateCategoryBottomSheet { categoryName ->
                     val categoryEntity = CategoryEntity(
                         name = categoryName,
