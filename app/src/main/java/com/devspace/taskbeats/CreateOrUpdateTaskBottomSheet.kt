@@ -34,7 +34,9 @@ class CreateOrUpdateTaskBottomSheet(
         val btnDelete = view.findViewById<Button>(R.id.btn_task_delete)
         val tieTaskName = view.findViewById<TextInputEditText>(R.id.tie_task_name)
         val spinner: Spinner = view.findViewById(R.id.category_list)
+
         var taskCategory: String? = null
+
         val caqtegoryListTemp = mutableListOf("Select")
         caqtegoryListTemp.addAll(
             categoryList.map { it.name }
