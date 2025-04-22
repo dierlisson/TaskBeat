@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">TaskBeat</string>
     <string name="home_title">Task Beat</string>
     <string name="create_task_title">Create Task</string>
@@ -8,4 +9,5 @@
     <string name="delete">Delete</string>
     <string name="category_delete_title">Important</string>
     <string name="category_delete_description">By deleting a category you will delete all tasks with this category, are you sure? </string>
+
 </resources>
